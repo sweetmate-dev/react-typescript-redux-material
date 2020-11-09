@@ -9,7 +9,6 @@ import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
-import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
 import Modal from "@material-ui/core/Modal";
 import { toast } from "react-toastify";
@@ -108,6 +107,7 @@ function QuestionEditView() {
   };
 
   const onDeleteAnswer = (index) => () => {
+    answers.splice(index, 1);
     setAnswers([...answers]);
   };
 
@@ -118,7 +118,7 @@ function QuestionEditView() {
     let hasFalseValue: boolean = false;
     const incorrect_answers: string[] = [];
     const correct_answers: string[] = [];
-    answers.map((answer, index) => {
+    for (let index = 0; index < answers.length; index++) {
       if (isChecked(data[`checkbox-${index}`])) {
         hasTrueValue = true;
         correct_answers.push(data[`answer-${index}`]);
@@ -127,8 +127,7 @@ function QuestionEditView() {
         hasFalseValue = true;
         incorrect_answers.push(data[`answer-${index}`]);
       }
-      return true;
-    });
+    }
     if (!hasTrueValue) {
       setError(ERROR_MUST_HAVE_CORRECT);
       return;

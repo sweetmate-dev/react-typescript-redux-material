@@ -9,6 +9,8 @@ import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
+import IconButton from "@material-ui/core/IconButton";
+import DeleteIcon from "@material-ui/icons/Delete";
 import Modal from "@material-ui/core/Modal";
 import { toast } from "react-toastify";
 import { updateSelectedQuestion } from "../../redux/actions/questions";
@@ -36,7 +38,7 @@ const useStyles = makeStyles((theme: Theme) =>
           marginLeft: 15,
         },
       },
-      "&.error-view": {
+      "& .error-view": {
         color: "red",
         fontSize: 14,
       },
@@ -63,6 +65,9 @@ const useStyles = makeStyles((theme: Theme) =>
       justifyContent: "center",
       alignItems: "center",
       overflow: "scroll",
+    },
+    deleteIcon: {
+      padding: theme.spacing(1),
     },
   })
 );
@@ -102,6 +107,10 @@ function QuestionEditView() {
     else return checked.length > 0;
   };
 
+  const onDeleteAnswer = (index) => () => {
+    setAnswers([...answers]);
+  };
+
   const onSubmit = (preview: boolean = false) => (data) => {
     if (Object.keys(errors).length > 0) return;
     //validate check status
@@ -109,14 +118,14 @@ function QuestionEditView() {
     let hasFalseValue: boolean = false;
     const incorrect_answers: string[] = [];
     const correct_answers: string[] = [];
-    Object.keys(data).map((key) => {
-      if (key.includes("checkbox-") && isChecked(data[key])) {
+    answers.map((answer, index) => {
+      if (isChecked(data[`checkbox-${index}`])) {
         hasTrueValue = true;
-        correct_answers.push(data[key.replace(/checkbox/, "question")]);
+        correct_answers.push(data[`answer-${index}`]);
       }
-      if (key.includes("checkbox-") && !isChecked(data[key])) {
+      if (!isChecked(data[`checkbox-${index}`])) {
         hasFalseValue = true;
-        incorrect_answers.push(data[key.replace(/checkbox/, "question")]);
+        incorrect_answers.push(data[`answer-${index}`]);
       }
       return true;
     });
@@ -134,6 +143,8 @@ function QuestionEditView() {
     else {
       tempQuestion.correct_answers = correct_answers;
       tempQuestion.incorrect_answers = incorrect_answers;
+      tempQuestion.question = data.question;
+      setAnswers([...correct_answers, ...incorrect_answers]);
       dispatch(updateSelectedQuestion(tempQuestion));
       toast.success("Saved successfully!");
     }
@@ -179,10 +190,10 @@ function QuestionEditView() {
                     justify="space-between"
                     alignItems="center"
                     className="question-edit-item"
-                    key={index}
+                    key={`answer-${answer}-${index}`}
                   >
                     <input
-                      name={`question-${index}`}
+                      name={`answer-${index}`}
                       ref={register({ required: true })}
                       defaultValue={answer}
                       className={classes.inputBox}
@@ -196,6 +207,9 @@ function QuestionEditView() {
                       className="checkbox"
                       data-testid={`answer-check-${index}`}
                     />
+                    <Button size="small" className={classes.deleteIcon} onClick={onDeleteAnswer(index)}>
+                      <DeleteIcon />
+                    </Button>
                   </Grid>
                 ))}
                 <div className="error-view">
@@ -206,7 +220,7 @@ function QuestionEditView() {
                           {ERROR_QUESTION_EMPTY}
                         </p>
                       );
-                    else if (key.includes("question-"))
+                    else if (key.includes("answer-"))
                       return (
                         <p key={key} data-testid="answer-empty-error">
                           {ERROR_ANSWER_EMPTY}

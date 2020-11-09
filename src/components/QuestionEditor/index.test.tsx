@@ -7,9 +7,9 @@ import QuestionEditor, {
   ERROR_MUST_HAVE_INCORRECT,
   ERROR_MUST_HAVE_CORRECT,
 } from "./index";
+import { QuizState } from "redux/reducers/questions";
 
-const INITIAL_QUIZ_STATE = {
-  loading: false,
+const INITIAL_QUIZ_STATE: QuizState = {
   questions: [
     {
       category: "Sports",
@@ -20,6 +20,7 @@ const INITIAL_QUIZ_STATE = {
       incorrect_answers: ["Hammersmith", "Vauxhall ", "Battersea"],
     },
   ],
+  loading: false,
   selectedQuestion: {
     category: "Sports",
     type: "multiple",

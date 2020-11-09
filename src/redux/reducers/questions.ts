@@ -2,7 +2,7 @@ import { Question } from "../../types/Question";
 import { QuestionActionTypes } from "../types";
 
 export interface QuizState {
-  questions: Question[] | [];
+  questions: Question[];
   loading: boolean;
   selectedQuestion?: Question | {};
 }
@@ -24,7 +24,7 @@ export function questionReducer(state = initialQuizState, action) {
       return {
         ...state,
         loading: false,
-        questions: [...action.payload, ...state.questions],
+        questions: [...action.payload, ...state.questions] as Question[],
       };
     case QuestionActionTypes.DELETE_QUESTION_REQUEST:
       return {

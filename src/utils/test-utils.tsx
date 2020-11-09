@@ -2,9 +2,14 @@ import React from "react";
 import { Provider } from "react-redux";
 import { render as rtlRender, RenderOptions } from "@testing-library/react";
 import { createStore } from "redux";
-import { overallReducer, RootState } from "../redux/rootReducer";
+import { overallReducer } from "../redux/rootReducer";
+import { QuizState } from "../redux/reducers/questions";
 
-const render = (ui: React.ReactElement, initialState?: RootState, renderOptions?: RenderOptions) => {
+export interface RootStateValue {
+  quiz: QuizState;
+}
+
+const render = (ui: React.ReactElement, initialState?: RootStateValue, renderOptions?: RenderOptions) => {
   const store = createStore(overallReducer, initialState);
   const Wrapper = ({ children }) => {
     return <Provider store={store}>{children}</Provider>;

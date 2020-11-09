@@ -16,6 +16,7 @@ import { RootState } from "../../redux/rootReducer";
 import "./index.scss";
 import { Question } from "../../types/Question";
 import QuestionPreview from "./preview";
+import { escapeHtml } from "utils/operations";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -137,7 +138,7 @@ function QuestionEditView() {
                     name="question"
                     ref={register({ required: true })}
                     className={classes.inputBox}
-                    defaultValue={tempQuestion.question}
+                    defaultValue={escapeHtml(tempQuestion.question)}
                     data-testid="question-input"
                   />
                 </Grid>

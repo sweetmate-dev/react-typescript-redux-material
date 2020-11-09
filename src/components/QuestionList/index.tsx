@@ -84,8 +84,6 @@ function QuestionListView() {
     dispatch(selectQuestion(question));
   };
 
-  const questionList: Question[] = questions;
-
   return (
     <div className="question-list">
       <Grid container justify="space-between" alignItems="center" className="header">
@@ -104,7 +102,7 @@ function QuestionListView() {
             <CircularProgress />
           </div>
         )}
-        {questionList.map((question: Question, index) => (
+        {questions.map((question: Question, index) => (
           <div
             key={index}
             className={classNames("question-item", { selected: question.question === selectedQuestion.question })}

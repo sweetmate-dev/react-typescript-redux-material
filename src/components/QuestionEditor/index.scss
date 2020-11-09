@@ -1,0 +1,27 @@
+.question-edit {
+  padding: 12px;
+  height: 100vh;
+  display: grid;
+  grid-template-rows: 80px auto;
+  h1,
+  h4 {
+    color: white;
+  }
+  .question-edit-item {
+    width: 100%;
+    margin-top: 8px;
+    .checkbox {
+      width: 24px;
+      height: 24px;
+      margin-left: 15px;
+    }
+  }
+  .error-view {
+    color: red;
+    font-size: 14px;
+  }
+}
+
+.question-edit-preview {
+  background-color: white;
+}

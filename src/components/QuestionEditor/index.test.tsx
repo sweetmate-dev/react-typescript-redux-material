@@ -1,5 +1,5 @@
 import React from "react";
-import { render, fireEvent, act, RenderResult } from "../../utils/test-utils.js";
+import { render, fireEvent, act, RenderResult } from "../../utils/test-utils";
 import "mutationobserver-shim";
 import QuestionEditor, {
   ERROR_QUESTION_EMPTY,
@@ -44,7 +44,7 @@ describe("Question Editor", () => {
 
   it("If question is empty, you should see the error message ~", async () => {
     await act(async () => {
-      renderResult = render(<QuestionEditor />, { initialState: { quiz: INITIAL_QUIZ_STATE } });
+      renderResult = render(<QuestionEditor />, { quiz: INITIAL_QUIZ_STATE });
     });
     const QuestionInputElement = renderResult.getByTestId("question-input");
     // Question title and its input box in the card should be visible
@@ -65,7 +65,7 @@ describe("Question Editor", () => {
 
   it("If a question is empty, you should see the error message ~", async () => {
     await act(async () => {
-      renderResult = render(<QuestionEditor />, { initialState: { quiz: INITIAL_QUIZ_STATE } });
+      renderResult = render(<QuestionEditor />, { quiz: INITIAL_QUIZ_STATE });
     });
     const AnswerInputElement = renderResult.getByTestId("answer-input-1");
     // Set the first answer to the empty string
@@ -82,7 +82,7 @@ describe("Question Editor", () => {
 
   it("If all answers are selected as 'correct', you should see the error message ~", async () => {
     await act(async () => {
-      renderResult = render(<QuestionEditor />, { initialState: { quiz: INITIAL_QUIZ_STATE } });
+      renderResult = render(<QuestionEditor />, { quiz: INITIAL_QUIZ_STATE });
     });
 
     // CheckBoxElement0 is already selected because it's correct answer
@@ -105,7 +105,7 @@ describe("Question Editor", () => {
 
   it("If all answers are selected as 'incorrect', you should see the error message ~", async () => {
     await act(async () => {
-      renderResult = render(<QuestionEditor />, { initialState: { quiz: INITIAL_QUIZ_STATE } });
+      renderResult = render(<QuestionEditor />, { quiz: INITIAL_QUIZ_STATE });
     });
 
     // Uncheck the first answer to get all answers as 'incorrect'

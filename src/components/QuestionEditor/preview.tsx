@@ -7,7 +7,6 @@ import Typography from "@material-ui/core/Typography";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import { escapeHtml } from "../../utils/operations";
-import "./index.scss";
 import { Question } from "../../types/Question";
 
 const useStyles = makeStyles((theme: Theme) =>

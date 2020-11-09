@@ -13,13 +13,34 @@ import Modal from "@material-ui/core/Modal";
 import { toast } from "react-toastify";
 import { updateSelectedQuestion } from "../../redux/actions/questions";
 import { RootState } from "../../redux/rootReducer";
-import "./index.scss";
 import { Question } from "../../types/Question";
 import QuestionPreview from "./preview";
 import { escapeHtml } from "utils/operations";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
+    questionEdit: {
+      padding: 12,
+      height: "100vh",
+      display: "grid",
+      gridTemplateRows: "80px auto",
+      "& h1": {
+        color: "white",
+      },
+      "& .question-edit-item": {
+        width: "100%",
+        marginTop: 8,
+        "& .checkbox": {
+          width: 24,
+          height: 24,
+          marginLeft: 15,
+        },
+      },
+      "&.error-view": {
+        color: "red",
+        fontSize: 14,
+      },
+    },
     content: {
       marginTop: 12,
       padding: "0 10px 40px 0",
@@ -119,7 +140,7 @@ function QuestionEditView() {
   };
 
   return (
-    <div className="question-edit">
+    <div className={classes.questionEdit}>
       <Grid container justify="space-between" alignItems="center" className="header" data-testid="editor-title">
         <Grid item>
           <h1>Editor</h1>

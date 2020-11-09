@@ -10,17 +10,45 @@ import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
 import { getQuestions, deleteQuestion, selectQuestion } from "../../redux/actions/questions";
 import { RootState } from "../../redux/rootReducer";
 import { escapeHtml } from "../../utils/operations";
-import "./index.scss";
 import { Question } from "../../types/Question";
 var classNames = require("classnames");
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    root: {
-      flexGrow: 1,
-      "& .MuiTextField-root": {
-        margin: theme.spacing(1),
-        width: "25ch",
+    questionList: {
+      padding: 12,
+      display: "grid",
+      gridTemplateRows: "80px auto",
+      height: "100vh",
+      "& h1": {
+        color: "white",
+      },
+      "& .content": {
+        overflowY: "scroll",
+        padding: "0 10px 40px 0",
+        "& .loading-container": {
+          display: "flex",
+          justifyContent: "center",
+        },
+        "& .question-item": {
+          margin: "10px 0",
+          width: "100%",
+          backgroundColor: "white",
+          borderRadius: 4,
+          "&.selected": {
+            backgroundColor: "lightblue",
+          },
+          " &.question": {
+            fontWeight: "700",
+          },
+          "& .status-container": {
+            marginTop: 20,
+          },
+          "& .difficulty": {
+            display: "flex",
+            alignItems: "center",
+          },
+        },
       },
     },
     paper: {
@@ -85,8 +113,8 @@ function QuestionListView() {
   };
 
   return (
-    <div className="question-list">
-      <Grid container justify="space-between" alignItems="center" className="header">
+    <div className={classes.questionList}>
+      <Grid container justify="space-between" alignItems="center">
         <Grid item>
           <h1>Questions</h1>
         </Grid>

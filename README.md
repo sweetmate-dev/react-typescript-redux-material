@@ -119,9 +119,10 @@ export function questionReducer(state = initialQuizState, action) {
 ```
 
 - Sagas
-  1. Fetch questions using API.
-  2. Remove the duplicated questions because API returns 10 dummy questions randomly per request.
-  3. Convert the returned questions to valid question type, because API returns the questoins that have only one correct answer as string. (A question should be able to have multiple correct answers).
+
+1. Fetch questions using API.
+2. Remove the duplicated questions because API returns 10 dummy questions randomly per request.
+3. Convert the returned questions to valid question type, because API returns the questoins that have only one correct answer as string. (A question should be able to have multiple correct answers).
 
 ```JS
 import { call, put, select } from "redux-saga/effects";

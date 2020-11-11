@@ -33,7 +33,7 @@ const INITIAL_QUIZ_STATE: QuizState = {
 
 describe("Question Editor", () => {
   let renderResult: RenderResult;
-  it("Editor card should be invisible unless you select a question", async () => {
+  it("Editor card should be invisible unless you select a question.", async () => {
     await act(async () => {
       renderResult = render(<QuestionEditor />);
     });
@@ -43,7 +43,7 @@ describe("Question Editor", () => {
     expect(renderResult.queryByText("Question")).toBeNull();
   });
 
-  it("If question is empty, you should see the error message ~", async () => {
+  it("If question title is empty, you should see the relevant error message.", async () => {
     await act(async () => {
       renderResult = render(<QuestionEditor />, { quiz: INITIAL_QUIZ_STATE });
     });
@@ -64,7 +64,7 @@ describe("Question Editor", () => {
     expect(renderResult.getByText(ERROR_QUESTION_EMPTY)).toBeVisible();
   });
 
-  it("If a question is empty, you should see the error message ~", async () => {
+  it("If an answer is empty, you should see the relevant error message.", async () => {
     await act(async () => {
       renderResult = render(<QuestionEditor />, { quiz: INITIAL_QUIZ_STATE });
     });
@@ -81,7 +81,7 @@ describe("Question Editor", () => {
     expect(renderResult.getByText(ERROR_ANSWER_EMPTY)).toBeVisible();
   });
 
-  it("If all answers are selected as 'correct', you should see the error message ~", async () => {
+  it("If all answers are selected as 'correct', you should see the relevant error message.", async () => {
     await act(async () => {
       renderResult = render(<QuestionEditor />, { quiz: INITIAL_QUIZ_STATE });
     });
@@ -104,7 +104,7 @@ describe("Question Editor", () => {
     expect(renderResult.getByText(ERROR_MUST_HAVE_INCORRECT)).toBeVisible();
   });
 
-  it("If all answers are selected as 'incorrect', you should see the error message ~", async () => {
+  it("If all answers are selected as 'incorrect', you should see the relevant error message.", async () => {
     await act(async () => {
       renderResult = render(<QuestionEditor />, { quiz: INITIAL_QUIZ_STATE });
     });

@@ -95,20 +95,22 @@ function QuestionListView() {
   }, []);
 
   const getMoreQuestions = () => {
+    // fetch more questions after clicking "Load More Questions' button
     dispatch(getQuestions());
   };
 
   const onDeleteQuestion = (index) => {
+    // delete a question using the index
     dispatch(deleteQuestion(index));
-    // if you deleted selected question in list view, editor view should be empty
+    // If you delete the editing question, editor view should be empty.
     if (questions[index].question === selectedQuestion.question) {
       dispatch(selectQuestion({}));
     }
   };
 
-  const editQuestion = (e, question, index) => {
-    // TODO
+  const editQuestion = (e, question) => {
     e.stopPropagation();
+    // select question to edit
     dispatch(selectQuestion(question));
   };
 
@@ -138,6 +140,7 @@ function QuestionListView() {
             <Paper className={classes.paper}>
               <Box className={classes.questionDetails}>
                 <Box component="span" className="question">
+                  {/* Remove unicoded strings */}
                   {escapeHtml(question.question)}
                 </Box>
                 <Grid container justify="space-between" className="status-container">
@@ -153,7 +156,7 @@ function QuestionListView() {
                 </Grid>
               </Box>
               <Box className={classes.buttons}>
-                <Button variant="contained" color="primary" onClick={(e) => editQuestion(e, question, index)}>
+                <Button variant="contained" color="primary" onClick={(e) => editQuestion(e, question)}>
                   Edit
                 </Button>
                 <Button

@@ -87,11 +87,13 @@ function QuestionEditView() {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    // reset temporary question object and answers array whenever you change the question on the right side
     setTempQuestion(selectedQuestion);
     setAnswers([...(selectedQuestion.correct_answers || []), ...(selectedQuestion.incorrect_answers || [])]);
   }, [selectedQuestion]);
 
   const onPressNewQuestion = () => {
+    // add empty answer after clicking "Add New Question" button
     setAnswers([...answers, ""]);
   };
 
@@ -102,6 +104,7 @@ function QuestionEditView() {
   };
 
   const isChecked = (checked) => {
+    // checked value can be true/false or ["on"]/[]
     if (typeof checked === "boolean") return checked;
     else return checked.length > 0;
   };
@@ -112,8 +115,22 @@ function QuestionEditView() {
   };
 
   const onSubmit = (preview: boolean = false) => (data) => {
+    /* data is just the form data which is available only if you submitted
+    For example, if question has 1 correct answer and 3 incorrect answers.
+    {
+      question: string,
+      answer-0: string,
+      answer-1: string,
+      answer-2: string,
+      answer-3: string,
+      check-0: true,
+      check-1: false,
+      check-2: false,
+      check-3: false,
+    }
+    */
     if (Object.keys(errors).length > 0) return;
-    //validate check status
+    //validate check status, combine correct/incorrect answers
     let hasTrueValue: boolean = false;
     let hasFalseValue: boolean = false;
     const incorrect_answers: string[] = [];
@@ -128,6 +145,7 @@ function QuestionEditView() {
         incorrect_answers.push(data[`answer-${index}`]);
       }
     }
+    // show errors
     if (!hasTrueValue) {
       setError(ERROR_MUST_HAVE_CORRECT);
       return;
@@ -137,9 +155,12 @@ function QuestionEditView() {
     } else {
       setError("");
     }
-    //
-    if (preview) openPreviewModal(true);
-    else {
+    // everything is validate
+    if (preview) {
+      // if you clicked preview button, show preview modal only
+      openPreviewModal(true);
+    } else {
+      // if you clicked save button, save the updated temporary question to redux
       tempQuestion.correct_answers = correct_answers;
       tempQuestion.incorrect_answers = incorrect_answers;
       tempQuestion.question = data.question;
@@ -148,7 +169,6 @@ function QuestionEditView() {
       toast.success("Saved successfully!");
     }
   };
-
   return (
     <div className={classes.questionEdit}>
       <Grid container justify="space-between" alignItems="center" className="header" data-testid="editor-title">

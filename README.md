@@ -30,7 +30,7 @@
 1. Clone the repo
 
 ```sh
-git clone https://github.com/sweetmate-dev/react-typescript-context-material
+git clone https://github.com/sweetmate-dev/react-typescript-redux-material.git
 ```
 
 2. Install packages
